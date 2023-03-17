@@ -1,11 +1,18 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"asso-api/config"
+	"asso-api/handler"
+	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/asso", handler.GetAssociations())
-	r.Run()
+	ctx := config.Connexion()
+	defer config.Client.Disconnect(ctx)
+	r := mux.NewRouter()
+	r.HandleFunc("/asso", handler.GetAssociations).Methods("GET").Queries("q", "{q}")
+
+	http.ListenAndServe(":80", r)
 }
