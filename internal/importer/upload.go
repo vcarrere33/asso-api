@@ -1,8 +1,8 @@
-package main
+package importer
 
 import (
-	"asso-api/config"
-	"asso-api/model"
+	"asso-api/internal/asso/model"
+	"asso-api/internal/config"
 	"context"
 	"encoding/csv"
 	"fmt"

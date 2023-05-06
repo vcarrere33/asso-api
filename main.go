@@ -1,8 +1,8 @@
 package main
 
 import (
-	"asso-api/config"
-	"asso-api/handler"
+	"asso-api/internal/asso/handler"
+	"asso-api/internal/config"
 	"net/http"
 
 	"github.com/gorilla/mux"

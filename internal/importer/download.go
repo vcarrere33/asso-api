@@ -1,4 +1,4 @@
-package main
+package importer
 
 import (
 	"io"
@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"os"
 	"strings"
+	"time"
 )
 
 var (
@@ -15,7 +16,9 @@ var (
 )
 
 func Download() string {
-	fullURLFile = "https://media.interieur.gouv.fr/rna/rna_import_20221101.zip"
+	currentYearMonth := time.Now().Format("20060102")
+
+	fullURLFile = strings.Join([]string{"https://media.interieur.gouv.fr/rna/rna_import_", currentYearMonth, ".zip"}, "")
 
 	// Build fileName from fullPath
 	fileURL, err := url.Parse(fullURLFile)
@@ -24,9 +27,10 @@ func Download() string {
 	}
 	path := fileURL.Path
 	segments := strings.Split(path, "/")
-	fileName = segments[len(segments)-1]
+	fileName = strings.Join([]string{"data", segments[len(segments)-1]}, "/")
 
 	// Create blank file
+	os.MkdirAll("data", 0755)
 	file, err := os.Create(fileName)
 	if err != nil {
 		log.Fatal(err)

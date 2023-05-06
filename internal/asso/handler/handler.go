@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"asso-api/config"
+	"asso-api/internal/config"
 	"context"
 	"encoding/json"
 	"log"
@@ -46,5 +46,6 @@ func GetAssociations(w http.ResponseWriter, r *http.Request) {
 		results = append(results, result)
 
 	}
+
 	json.NewEncoder(w).Encode(results)
 }
